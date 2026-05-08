@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENTE & LUZ — Fotografía y Audiovisuales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro: #0a0a0a;
+    --blanco: #f5f0e8;
+    --dorado: #c9a84c;
+    --dorado-oscuro: #8a6a2a;
+    --gris: #2a2a2a;
+    --gris-medio: #555;
+    --gris-claro: #999;
+    --acento: #e05c3a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--negro);
+    color: var(--blanco);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    mix-blend-mode: normal;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--dorado);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--blanco); font-style: italic; }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--dorado); }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--dorado);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dorado);
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--gris-claro);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--dorado);
+    color: var(--negro);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--blanco);
+    gap: 1.5rem;
+  }
+
+  .btn-primary .arrow { font-size: 1rem; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--blanco);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gris-medio);
+    transition: all 0.3s;
+    margin-left: 2rem;
+  }
+
+  .btn-secondary:hover { border-color: var(--dorado); color: var(--dorado); }
+
+  .hero-btns { display: flex; align-items: center; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 3px;
+  }
+
+  .img-cell {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .img-cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.2);
+  }
+
+  .img-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 6s ease;
+    display: block;
+  }
+
+  .img-cell:hover img { transform: scale(1); }
+
+  .img-cell:nth-child(1) { grid-row: 1 / 3; }
+
+  .hero-counter {
+    position: absolute;
+    bottom: 3rem;
+    left: 4rem;
+    z-index: 3;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .counter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--dorado);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  .counter-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+  }
+
+  /* SERVICIOS */
+  .section { padding: 8rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 5rem;
+  }
+
+  .section-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--dorado);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--dorado); }
+
+  .section-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--gris);
+    transition: all 0.3s;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-link:hover { color: var(--dorado); border-color: var(--dorado); }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .servicio-card {
+    background: var(--gris);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+
+  .servicio-card:hover { background: #1e1e1e; }
+
+  .servicio-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--dorado);
+    opacity: 0.08;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .servicio-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--gris-medio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    transition: border-color 0.3s;
+  }
+
+  .servicio-card:hover .servicio-icon { border-color: var(--dorado); }
+
+  .servicio-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .servicio-desc {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--gris-claro);
+    font-weight: 300;
+  }
+
+  .servicio-bar {
+    height: 2px;
+    background: var(--gris-medio);
+    margin-top: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicio-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--dorado);
+    transition: width 0.5s ease;
+  }
+
+  .servicio-card:hover .servicio-bar::after { width: 100%; }
+
+  /* PORTFOLIO */
+  .portfolio { padding: 4rem 4rem 8rem; }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 3px;
+  }
+
+  .port-item {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .port-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 3; aspect-ratio: unset; height: 500px; }
+  .port-item:nth-child(2) { grid-column: 6 / 9; aspect-ratio: 1; }
+  .port-item:nth-child(3) { grid-column: 9 / 13; aspect-ratio: 1; }
+  .port-item:nth-child(4) { grid-column: 6 / 10; aspect-ratio: 1; }
+  .port-item:nth-child(5) { grid-column: 10 / 13; aspect-ratio: 1; }
+
+  .port-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.08);
+    transition: transform 0.7s ease;
+    filter: saturate(0.7);
+  }
+
+  .port-item:hover .port-img {
+    transform: scale(1);
+    filter: saturate(1);
+  }
+
+  .port-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+  }
+
+  .port-item:hover .port-overlay { opacity: 1; }
+
+  .port-cat {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 0.5rem;
+  }
+
+  .port-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+  }
+
+  /* PROCESO */
+  .proceso { padding: 8rem 4rem; background: var(--gris); }
+
+  .proceso-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 5rem;
+    position: relative;
+  }
+
+  .proceso-steps::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 12.5%;
+    right: 12.5%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gris-medio), transparent);
+  }
+
+  .paso {
+    padding: 0 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .paso-num {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--gris-medio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--dorado);
+    background: var(--gris);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .paso:hover .paso-num {
+    background: var(--dorado);
+    color: var(--negro);
+    border-color: var(--dorado);
+  }
+
+  .paso-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .paso-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--gris-claro);
+    font-weight: 300;
+  }
+
+  /* TESTIMONIOS */
+  .testimonios { padding: 8rem 4rem; }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 4rem;
+  }
+
+  .testi-card {
+    background: var(--gris);
+    padding: 3rem;
+  }
+
+  .testi-cita {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--blanco);
+  }
+
+  .testi-cita::before { content: '\201C'; color: var(--dorado); font-size: 1.5em; }
+
+  .testi-autor {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .testi-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--dorado-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--dorado);
+    flex-shrink: 0;
+  }
+
+  .testi-nombre { font-size: 0.9rem; font-weight: 500; }
+  .testi-rol { font-size: 0.78rem; color: var(--gris-claro); margin-top: 2px; }
+
+  /* EQUIPO */
+  .equipo { padding: 8rem 4rem; background: var(--gris); }
+
+  .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 5rem;
+  }
+
+  .miembro {
+    text-align: center;
+  }
+
+  .miembro-foto {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .miembro-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.5s;
+  }
+
+  .miembro:hover .miembro-foto img { filter: grayscale(0%); }
+
+  .miembro-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .miembro-rol {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dorado);
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--gris-medio);
+    border-bottom: 1px solid var(--gris-medio);
+  }
+
+  .stat {
+    padding: 3rem 4rem;
+    text-align: center;
+    border-right: 1px solid var(--gris-medio);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--dorado);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+  }
+
+  /* CONTACTO */
+  .contacto { padding: 8rem 4rem; }
+
+  .contacto-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: start;
+  }
+
+  .contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--gris-medio);
+    color: var(--blanco);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    padding: 0.75rem 0;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: var(--negro); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--dorado); }
+
+  .form-group textarea { resize: none; height: 100px; }
+
+  .btn-submit {
+    background: transparent;
+    border: 1px solid var(--dorado);
+    color: var(--dorado);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .btn-submit:hover {
+    background: var(--dorado);
+    color: var(--negro);
+  }
+
+  .contacto-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contacto-info p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--gris-claro);
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--gris-medio);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    color: var(--dorado);
+  }
+
+  .contact-text { font-size: 0.9rem; color: var(--gris-claro); line-height: 1.6; }
+  .contact-text strong { color: var(--blanco); display: block; margin-bottom: 2px; font-weight: 400; }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    padding: 4rem 4rem 2rem;
+    border-top: 1px solid var(--gris);
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--gris);
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand .logo { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+
+  .footer-brand p {
+    font-size: 0.85rem;
+    color: var(--gris-claro);
+    max-width: 280px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .footer-nav h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .footer-nav ul a {
+    font-size: 0.85rem;
+    color: var(--gris-claro);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-nav ul a:hover { color: var(--blanco); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+  }
+
+  .social-links { display: flex; gap: 1rem; }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--gris);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gris-claro);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: all 0.3s;
+    letter-spacing: 0;
+  }
+
+  .social-link:hover { border-color: var(--dorado); color: var(--dorado); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    nav { padding: 1.5rem 2rem; }
+    .section, .portfolio, .proceso, .equipo, .testimonios, .contacto { padding: 5rem 2rem; }
+    .hero { grid-template-columns: 1fr; height: auto; }
+    .hero-left { padding: 8rem 2rem 4rem; }
+    .hero-right { height: 60vh; }
+    .servicios-grid, .equipo-grid { grid-template-columns: 1fr 1fr; }
+    .proceso-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .proceso-steps::before { display: none; }
+    .contacto-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .port-item:nth-child(1) { grid-column: 1 / 7; height: 350px; }
+    .port-item:nth-child(2) { grid-column: 7 / 13; }
+    .port-item:nth-child(3) { grid-column: 1 / 7; }
+    .port-item:nth-child(4) { grid-column: 7 / 10; }
+    .port-item:nth-child(5) { grid-column: 10 / 13; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">LENTE <span>&</span> LUZ</a>
+  <ul>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Fotografía & Audiovisuales</div>
+    <h1>El arte de<br>capturar lo <em>efímero</em></h1>
+    <p class="hero-desc">Transformamos momentos en imágenes eternas. Desde fotografía editorial hasta producción audiovisual de alto impacto — contamos tu historia con luz y movimiento.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-primary">Ver portfolio <span class="arrow">→</span></a>
+      <a href="#contacto" class="btn-secondary">Solicitar presupuesto</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="img-cell">
+        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80" alt="Fotografía artística">
+      </div>
+      <div class="img-cell">
+        <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&q=80" alt="Equipo fotográfico">
+      </div>
+      <div class="img-cell">
+        <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=400&q=80" alt="Retrato">
+      </div>
+    </div>
+    <div class="hero-counter">
+      <span class="counter-num">8+</span>
+      <span class="counter-label">Años de experiencia</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal">
+    <div class="stat-num">+850</div>
+    <div class="stat-label">Proyectos realizados</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">+320</div>
+    <div class="stat-label">Clientes satisfechos</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">24</div>
+    <div class="stat-label">Premios obtenidos</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-num">12</div>
+    <div class="stat-label">Países trabajados</div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Lo que ofrecemos</div>
+      <h2 class="section-title">Servicios <em>especializados</em></h2>
+    </div>
+    <a href="#contacto" class="section-link">Ver todos los servicios →</a>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <div class="servicio-num">01</div>
+      <div class="servicio-icon">📷</div>
+      <h3 class="servicio-nombre">Fotografía Comercial</h3>
+      <p class="servicio-desc">Imágenes de producto, campaña publicitaria y branding corporativo que conectan con tu audiencia y potencian la identidad de tu marca.</p>
+      <div class="servicio-bar"></div>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-num">02</div>
+      <div class="servicio-icon">🎬</div>
+      <h3 class="servicio-nombre">Producción Audiovisual</h3>
+      <p class="servicio-desc">Vídeos corporativos, spots publicitarios, documentales y contenido para redes sociales. Concepto, rodaje y postproducción integral.</p>
+      <div class="servicio-bar"></div>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-num">03</div>
+      <div class="servicio-icon">🖼️</div>
+      <h3 class="servicio-nombre">Fotografía Editorial</h3>
+      <p class="servicio-desc">Editoriales de moda, arte y cultura con una visión artística singular. Colaboramos con revistas, marcas y proyectos creativos independientes.</p>
+      <div class="servicio-bar"></div>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-num">04</div>
+      <div class="servicio-icon">🎞️</div>
+      <h3 class="servicio-nombre">Postproducción</h3>
+      <p class="servicio-desc">Retoque avanzado, edición de vídeo, colorización y etalonaje cinematográfico. Transformamos el material bruto en una pieza pulida y memorable.</p>
+      <div class="servicio-bar"></div>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-num">05</div>
+      <div class="servicio-icon">🎭</div>
+      <h3 class="servicio-nombre">Eventos y Lifestyle</h3>
+      <p class="servicio-desc">Cobertura de eventos corporativos, bodas de lujo, conciertos y festivales. Capturamos la energía y los momentos irrepetibles de cada ocasión.</p>
+      <div class="servicio-bar"></div>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-num">06</div>
+      <div class="servicio-icon">🚁</div>
+      <h3 class="servicio-nombre">Fotografía Aérea</h3>
+      <p class="servicio-desc">Perspectivas únicas desde el aire con drones de última generación. Ideal para inmobiliaria, turismo, paisajismo y producción cinematográfica.</p>
+      <div class="servicio-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="portfolio">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Nuestro trabajo</div>
+      <h2 class="section-title">Portfolio <em>selecto</em></h2>
+    </div>
+    <a href="#" class="section-link">Ver galería completa →</a>
+  </div>
+  <div class="portfolio-grid">
+    <div class="port-item">
+      <img class="port-img" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80" alt="Fotografía de cámara">
+      <div class="port-overlay">
+        <div class="port-cat">Editorial</div>
+        <div class="port-title">Geometría de la luz</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img class="port-img" src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80" alt="Concierto">
+      <div class="port-overlay">
+        <div class="port-cat">Eventos</div>
+        <div class="port-title">Noche en vivo</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img class="port-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=80" alt="Paisaje">
+      <div class="port-overlay">
+        <div class="port-cat">Aérea</div>
+        <div class="port-title">Perspectiva natural</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img class="port-img" src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=400&q=80" alt="Retrato artístico">
+      <div class="port-overlay">
+        <div class="port-cat">Retrato</div>
+        <div class="port-title">Miradas íntimas</div>
+      </div>
+    </div>
+    <div class="port-item">
+      <img class="port-img" src="https://images.unsplash.com/photo-1455218873509-8097305ee378?w=300&q=80" alt="Producto comercial">
+      <div class="port-overlay">
+        <div class="port-cat">Comercial</div>
+        <div class="port-title">Esencia de marca</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proceso" id="proceso">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Cómo trabajamos</div>
+      <h2 class="section-title">Nuestro <em>proceso</em> creativo</h2>
+    </div>
+  </div>
+  <div class="proceso-steps">
+    <div class="paso reveal">
+      <div class="paso-num">01</div>
+      <h3 class="paso-nombre">Descubrimiento</h3>
+      <p class="paso-desc">Escuchamos tu visión, tus objetivos y tu público. Analizamos referencias y definimos el concepto creativo que mejor representa tu mensaje.</p>
+    </div>
+    <div class="paso reveal">
+      <div class="paso-num">02</div>
+      <h3 class="paso-nombre">Preproducción</h3>
+      <p class="paso-desc">Planificamos cada detalle: localizaciones, casting, guión técnico, equipo y logística. Sin improvisación, solo excelencia garantizada.</p>
+    </div>
+    <div class="paso reveal">
+      <div class="paso-num">03</div>
+      <h3 class="paso-nombre">Producción</h3>
+      <p class="paso-desc">Ejecutamos el rodaje o sesión con precisión artística y técnica. Dirección creativa, iluminación y captura de los mejores momentos.</p>
+    </div>
+    <div class="paso reveal">
+      <div class="paso-num">04</div>
+      <h3 class="paso-nombre">Entrega</h3>
+      <p class="paso-desc">Postproducción cuidada y revisiones hasta tu total satisfacción. Entrega en los formatos y resoluciones que necesitas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios" id="testimonios">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Clientes</div>
+      <h2 class="section-title">Lo que dicen <em>de nosotros</em></h2>
+    </div>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testi-card reveal">
+      <p class="testi-cita">El resultado superó todas nuestras expectativas. Las imágenes capturaron exactamente la esencia de nuestra marca y el impacto en ventas fue inmediato.</p>
+      <div class="testi-autor">
+        <div class="testi-avatar">MG</div>
+        <div>
+          <div class="testi-nombre">María García</div>
+          <div class="testi-rol">Directora Creativa — Ámbar Studio</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <p class="testi-cita">Profesionalismo absoluto desde la primera reunión. El vídeo corporativo que produjeron se ha convertido en la pieza más vista de nuestra historia.</p>
+      <div class="testi-autor">
+        <div class="testi-avatar">CR</div>
+        <div>
+          <div class="testi-nombre">Carlos Ruiz</div>
+          <div class="testi-rol">CEO — Nexum Comunicación</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <p class="testi-cita">La cobertura de nuestra boda fue un sueño. Cada fotografía cuenta una historia y revivir ese día a través de sus imágenes es un regalo eterno.</p>
+      <div class="testi-autor">
+        <div class="testi-avatar">AL</div>
+        <div>
+          <div class="testi-nombre">Ana & Luis</div>
+          <div class="testi-rol">Boda en Granada, 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <p class="testi-cita">Trabajar con este equipo fue una experiencia transformadora. Su visión artística llevó nuestra editorial a un nivel completamente diferente.</p>
+      <div class="testi-autor">
+        <div class="testi-avatar">PS</div>
+        <div>
+          <div class="testi-nombre">Paula Serrano</div>
+          <div class="testi-rol">Editora — Revista Formato</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="equipo" id="equipo">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Las personas detrás del objetivo</div>
+      <h2 class="section-title">Nuestro <em>equipo</em></h2>
+    </div>
+  </div>
+  <div class="equipo-grid">
+    <div class="miembro reveal">
+      <div class="miembro-foto">
+        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" alt="Fotógrafo principal">
+      </div>
+      <div class="miembro-nombre">Alejandro Vidal</div>
+      <div class="miembro-rol">Director Creativo & Fotógrafo</div>
+    </div>
+    <div class="miembro reveal">
+      <div class="miembro-foto">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Directora audiovisual">
+      </div>
+      <div class="miembro-nombre">Sofía Morales</div>
+      <div class="miembro-rol">Directora Audiovisual</div>
+    </div>
+    <div class="miembro reveal">
+      <div class="miembro-foto">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" alt="Editor de vídeo">
+      </div>
+      <div class="miembro-nombre">Javier Castillo</div>
+      <div class="miembro-rol">Editor & Colorista</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Hablemos</div>
+      <h2 class="section-title">Empieza tu <em>proyecto</em></h2>
+    </div>
+  </div>
+  <div class="contacto-inner">
+    <form class="contacto-form" onsubmit="return false;">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Tipo de proyecto</label>
+        <select>
+          <option value="">Selecciona un servicio</option>
+          <option>Fotografía Comercial</option>
+          <option>Producción Audiovisual</option>
+          <option>Fotografía Editorial</option>
+          <option>Postproducción</option>
+          <option>Eventos y Lifestyle</option>
+          <option>Fotografía Aérea</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cuéntanos tu idea</label>
+        <textarea placeholder="Describe brevemente tu proyecto, fechas estimadas, presupuesto..."></textarea>
+      </div>
+      <button class="btn-submit" type="submit">Enviar mensaje →</button>
+    </form>
+    <div class="contacto-info reveal">
+      <h3>¿Tienes un proyecto en mente?</h3>
+      <p>Nos encanta escuchar ideas nuevas. Tanto si tienes todo claro como si solo tienes una sensación de lo que quieres, estamos aquí para ayudarte a darle forma.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div class="contact-text">
+            <strong>Email</strong>
+            hola@lenteiluz.es
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">☎</div>
+          <div class="contact-text">
+            <strong>Teléfono</strong>
+            +34 958 123 456
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <strong>Estudio</strong>
+            Calle Recogidas, 12 — Granada, España
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div class="contact-text">
+            <strong>Horario</strong>
+            Lunes a viernes · 9:00 – 18:00
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">LENTE <span>&</span> LUZ</a>
+      <p>Fotografía y producción audiovisual con alma. Creamos imágenes que perduran y vídeos que emocionan.</p>
+    </div>
+    <div class="footer-nav">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#">Fotografía Comercial</a></li>
+        <li><a href="#">Producción Audiovisual</a></li>
+        <li><a href="#">Fotografía Editorial</a></li>
+        <li><a href="#">Postproducción</a></li>
+        <li><a href="#">Fotografía Aérea</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Colaboraciones</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-nav">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Lente & Luz. Todos los derechos reservados.</span>
+    <div class="social-links">
+      <a href="#" class="social-link">IG</a>
+      <a href="#" class="social-link">YT</a>
+      <a href="#" class="social-link">BE</a>
+      <a href="#" class="social-link">LI</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
